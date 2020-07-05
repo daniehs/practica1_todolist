@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="./styles/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="./styles/main.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="./styles/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="./styles/main.css" />
 
-  <title>Document</title>
-</head>
-<body>
-  <h1>To do List</h1>
+    <title>Practica 1</title>
+  </head>
+  <body>
+    <header>
+      <h1>Practica 1: To Do List</h1>
+    </header>
+    <main>
+      <form action="">
+        <div class="wrapper">
+          <div class="todolist">
+            <input
+              type="text"
+              class="input_tarea"
+              placeholder="Ingresa tu tarea"
+            />
 
-<script src="./js/scripts.js"></script>
-</body>
+            <button class="prioridad_max"></button>
+            <button class="prioridad_med"></button>
+            <button class="prioridad_min"></button>
+
+            <input type="datetime-local" class="fecha_hora" />
+          </div>
+          <button class="agregar_tarea"></button>
+        </div>
+      </form>
+      <div class="tareas"></div>
+    </main>
+
+    <script src="./js/scripts.js"></script>
+  </body>
 </html>
