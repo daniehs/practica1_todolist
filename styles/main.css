@@ -3,36 +3,38 @@ body {
   font-size: 18px;
   width: 50%;
   margin: 0 auto;
+  background-color: #3a86ff;
 }
 
 h1 {
   text-align: center;
 }
 button {
-  padding: 1.2em;
   border-radius: 8px;
   cursor: pointer;
   margin: 20px 10px;
+  color: #d3d3d3;
+}
+i {
+  color: black;
 }
 
-
-.wrapper{
-  display:flex;
+.wrapper {
+  display: flex;
   flex-wrap: wrap;
-  width:100%;
+  width: 100%;
   justify-content: space-between;
 }
 
-.agregar_tarea{
-  width:10%;
+.agregar_tarea {
+  width: 10%;
 }
 
-.todolist{
-  display:flex;
+.todolist {
+  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width:85%;
-
+  width: 85%;
 }
 .todolist button {
   padding: 1.8em;
@@ -44,6 +46,7 @@ button {
   display: block;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.4em;
+
   margin: 20px 10px;
   width: 100%;
 }
@@ -53,24 +56,50 @@ button {
   margin: 20px 10px;
 }
 
-input+.prioridad_max,ul .prioridad_max{
-  background-color: red;
+input + .prioridad_max,
+#tareas > .prioridad_max {
+  background-color: #d62828;
 }
-button+.prioridad_med,ul .prioridad_med{
-  background-color: yellow;
+button + .prioridad_med,
+#tareas > .prioridad_med {
+  background-color: #ffbd00;
 }
-button+.prioridad_min,ul .prioridad_min{
+button + .prioridad_min,
+#tareas > .prioridad_min {
   background-color: green;
 }
-#tareas{
-  padding-left:0;
+
+#tareas > div {
+  display: flex;
+  justify-content: space-between;
 }
-#tareas li{
-  display: block;
-  list-style: none;
+#tareas {
+  margin: 0;
+  padding: 0;
+  list-style: square;
+}
+#tareas > div {
   padding: 1.2em;
   border-radius: 2px;
   cursor: pointer;
   margin: 20px 10px;
-  color: black}
+  color: white;
+  font-size: 1.4em;
+  font-weight: bold;
+  border-style: solid;
+  border-color: white;
+}
 
+li {
+  list-style: square inside;
+  width: 50%;
+}
+
+p {
+  text-align: center;
+  color: red;
+  font-size: 1.4em;
+  font-weight: bold;
+  margin: 20px 10px;
+  padding: 1.2em;
+}
