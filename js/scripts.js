@@ -1,3 +1,4 @@
+let global='';
 const click_handler = (e) => {
   let itarea = document.querySelector(".input_tarea");
   let contenedor_tarea = document.querySelector("#tareas");
@@ -5,6 +6,8 @@ const click_handler = (e) => {
 
   switch (e.target.classList.value) {
     case "prioridad_max":
+      global='mariana';
+      console.log(global);
       contenedor_tarea.classList.value = "";
       contenedor_tarea.classList.add("prioridad_max");
       e.preventDefault();
@@ -12,6 +15,9 @@ const click_handler = (e) => {
       break;
 
     case "prioridad_med":
+      global='wendy';
+      console.log(global);
+
       contenedor_tarea.classList.value = "";
       contenedor_tarea.classList.add("prioridad_med");
       e.preventDefault();
@@ -34,8 +40,16 @@ const click_handler = (e) => {
         contenedor_tarea.classList.value &&
         new Date(fingresada.value) - Date.now() > 0
       ) {
+
+    
+        //Creamos un div que sera la tarjeta de la tarea
         let divtarea = document.createElement("DIV");
-        let ntareas = document.getElementById("tareas").childElementCount;
+        //Este es el numero de tarjetas 0,1,2....childelementcount
+        let ntareas=document.getElementById("tareas").childElementCount;
+         (ntareas>0)?
+         ntareas=document.getElementById("tareas").lastElementChild.classList[0].substring(6)*1+1:
+         ntareas=1;
+        //Colocamos una clase para colocar a cada tarjeta de trabajo que se agregue "tarea-0, tarea-1,..."
         divtarea.classList.add(
           `tarea-${ntareas}`,
           contenedor_tarea.classList.value
@@ -45,11 +59,20 @@ const click_handler = (e) => {
 
         let temp = document.createElement("SPAN");
         temp.classList.add(`temporizador-${ntareas}`);
+        let spanb = document.createElement("SPAN");
+        let icon = document.createElement("I");
+        icon.classList.add("fas");
+        icon.classList.add("fa-backspace");
 
-        tareas.appendChild(divtarea);
+        spanb.appendChild(icon);
+
+        contenedor_tarea.appendChild(divtarea);
+        //aqui agrego la clase que debo tomar en cuenta
         let tarea = document.querySelector(`.tarea-${ntareas}`);
         tarea.appendChild(litarea);
         tarea.appendChild(temp);
+        tarea.appendChild(spanb);
+
         let temporizador = document.querySelector(`.temporizador-${ntareas}`);
 
         timer(fingresada.value, temporizador);
@@ -84,7 +107,24 @@ const click_handler = (e) => {
 
 document.querySelector(".wrapper").addEventListener("click", click_handler);
 
-añadircero = (hora) => (hora < 10 ? "0" + hora : hora);
+anadircero = (hora) => (hora < 10 ? "0" + hora : hora);
+
+indice=(lastchild)=>{
+
+// let i = lastchild.
+}
+const eliminar = (e) => {
+  // console.log(e.target.parentElement.parentElement);
+  console.log(global);
+  if (e.target.classList.contains('fa-backspace')) {
+    console.log('entro');
+    document
+      .querySelector("#tareas")
+      .removeChild(e.target.parentElement.parentElement);
+     clearInterval(timer);
+  }
+};
+document.querySelector("#tareas").addEventListener("click", eliminar);
 
 const timer = (fechasel, display) => {
   console.log(fechasel, display);
@@ -109,11 +149,11 @@ const timer = (fechasel, display) => {
     display.textContent =
       diast +
       "D " +
-      añadircero(horast) +
+      anadircero(horast) +
       "H " +
-      añadircero(minutost) +
+      anadircero(minutost) +
       "M " +
-      añadircero(segundost) +
+      anadircero(segundost) +
       "S ";
   }, 1000);
 };
