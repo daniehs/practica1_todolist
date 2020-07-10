@@ -55,17 +55,13 @@ i {
   font-size: 1em;
   margin: 20px 10px;
 }
-
-input + .prioridad_max,
-#tareas > .prioridad_max {
+.prioridad_max,.rojo {
   background-color: #d62828;
 }
-button + .prioridad_med,
-#tareas > .prioridad_med {
+.prioridad_med,.amarillo{
   background-color: #ffbd00;
 }
-button + .prioridad_min,
-#tareas > .prioridad_min {
+.prioridad_min,.verde {
   background-color: green;
 }
 
