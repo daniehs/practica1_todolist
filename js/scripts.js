@@ -1,5 +1,6 @@
 let color = "";
 let indice = 1;
+let interval = [];
 
 const click_handler = (e) => {
   let itarea = document.querySelector(".input_tarea");
@@ -35,13 +36,15 @@ const click_handler = (e) => {
       e.preventDefault();
 
       let fecha = new Date(fingresada.value) > Date.now();
-      console.log(new Date(fingresada.value),Date.now());
       if (itarea.value && fingresada.value && color && fecha) {
+        document.querySelector("p")
+          ? contenedor_tarea.removeChild(document.querySelector("p"))
+          : "";
         //Creamos un div que sera la tarjeta de la tarea
         console.log(indice);
         let divtarea = document.createElement("DIV");
         //Este es el numero de tarjetas 0,1,2....childelementcount
-        let ntareas = document.getElementById("tareas").childElementCount;
+        let ntareas = contenedor_tarea.childElementCount;
 
         ntareas > 0 ? indice++ : indice > 1 ? indice++ : indice;
 
@@ -72,6 +75,7 @@ const click_handler = (e) => {
 
         itarea.value = "";
         fingresada.value = "";
+        color = "";
       } else {
         let error = document.createElement("P");
         let merror;
@@ -82,11 +86,12 @@ const click_handler = (e) => {
 
         error.textContent = merror;
         console.log(error);
-        if (!contenedor_tarea.hasChildNodes()) {
-          contenedor_tarea.appendChild(error);
-        } else {
-          contenedor_tarea.replaceChild(error, contenedor_tarea.firstChild);
-        }
+        console.log(merror);
+        !contenedor_tarea.hasChildNodes()
+          ? contenedor_tarea.appendChild(error)
+          : !document.querySelector("P")
+          ? contenedor_tarea.prepend(error)
+          : (document.querySelector("P").textContent = merror);
       }
 
       break;
@@ -103,19 +108,22 @@ anadircero = (hora) => (hora < 10 ? "0" + hora : hora);
 const eliminar = (e) => {
   // console.log(e.target.parentElement.parentElement);
   if (e.target.classList.contains("fa-backspace")) {
-    console.log("entro");
     document
       .querySelector("#tareas")
       .removeChild(e.target.parentElement.parentElement);
+    console.log(e.target.parentElement.classList.value.substring(13));
+    clearInterval(
+      interval[
+        Number(e.target.parentElement.parentElement.classList[0].substring(6))
+      ]
+    );
   }
 };
 document.querySelector("#tareas").addEventListener("click", eliminar);
 
 const timer = (fechasel, display, indice) => {
-  console.log(fechasel, display, indice);
-  setInterval(() => {
+  interval[indice] = setTimeout(function start() {
     let difsegundos = Math.abs(new Date(fechasel) - Date.now()) / 1000;
-
     let diast = Math.floor(difsegundos / 86400);
     difsegundos -= diast * 86400;
 
@@ -129,7 +137,7 @@ const timer = (fechasel, display, indice) => {
     difsegundos -= minutost * 60;
 
     // what's left is segundost
-    let segundost = Math.floor(difsegundos % 60);
+    segundost = Math.floor(difsegundos % 60);
 
     display.textContent =
       diast +
@@ -140,5 +148,14 @@ const timer = (fechasel, display, indice) => {
       "M " +
       anadircero(segundost) +
       "S ";
+
+    interval[indice] = setTimeout(start, 1000); // (*)
+    console.log(difsegundos);
+    if (Math.floor(difsegundos) < 1 && !diast && !minutost && !horast) {
+      document
+        .querySelector("#tareas")
+        .removeChild(document.querySelector(`.tarea-${indice}`));
+      clearInterval(interval[indice]);
+    }
   }, 1000);
 };
